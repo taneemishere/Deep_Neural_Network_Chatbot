@@ -36,11 +36,6 @@ def chat_model():
         if input_t.lower() == 'quit':
             break
 
-        # tokenizer = Tokenizer()
-        # tokenizer.fit_on_texts(training_sentences)
-        # word_index = tokenizer.word_index
-        # sequences = tokenizer.texts_to_sequences(training_sentences)
-
         result = model.predict(
             keras.preprocessing.sequence.pad_sequences(
                 tokenizer.texts_to_sequences([input_t]),

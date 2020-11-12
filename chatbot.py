@@ -5,9 +5,11 @@ import pickle
 
 import colorama
 
+# for coloring the user and chatbot texts
 colorama.init()
 from colorama import Fore, Style, Back
 
+# opening the intents.json file
 with open('intents.json') as file:
     data = json.load(file)
 
@@ -27,12 +29,14 @@ def chat_model():
     # Parameters
     max_len = 20
 
+    # while the user didn't type quit take inputs
     while True:
         print(Fore.LIGHTBLACK_EX + "User: " + Style.RESET_ALL, end="")
         input_t = input()
         if input_t.lower() == 'quit':
             break
 
+        # making the model to predict the answers
         result = model.predict(
             keras.preprocessing.sequence.pad_sequences(
                 tokenizer.texts_to_sequences([input_t]),

@@ -1,7 +1,5 @@
 import json
 import numpy as np
-import tensorflow as tf
-from tensorflow import keras
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Embedding, GlobalAveragePooling1D
 from tensorflow.keras.preprocessing.text import Tokenizer
@@ -9,12 +7,17 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 from sklearn.preprocessing import LabelEncoder
 import pickle
 
+# opening the json file
 with open('intents.json') as file:
     data = json.load(file)
 
+# this stores the patterns from the json
 training_sentences = []
+# this stores the tag from json
 training_labels = []
+# this stores the labels from model
 labels = []
+# this is the response made by the model
 responses = []
 
 for intent in data['intents']:

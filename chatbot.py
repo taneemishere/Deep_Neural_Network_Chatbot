@@ -45,6 +45,8 @@ def chat_model():
 
         tag = label_encoder.inverse_transform([np.argmax(result)])
 
+        # from the intents.json file print the models predict answer to the user
+        # entered query
         for i in data['intents']:
             if i['tag'] == tag:
                 print(Fore.GREEN + "ChatBot: " +

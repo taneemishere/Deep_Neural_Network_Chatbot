@@ -1,9 +1,6 @@
 import json
 import numpy as np
 from tensorflow import keras
-from tensorflow.keras.preprocessing.text import Tokenizer
-from sklearn.preprocessing import LabelEncoder
-import random
 import pickle
 
 import colorama

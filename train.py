@@ -20,6 +20,8 @@ labels = []
 # this is the response made by the model
 responses = []
 
+# taking all the patterns and tags from intents.json
+# and appending to the responses and tags
 for intent in data['intents']:
     for pattern in intent['patterns']:
         training_sentences.append(pattern)
@@ -28,10 +30,12 @@ for intent in data['intents']:
     if intent['tag'] not in labels:
         labels.append(intent['tag'])
 
+# These print statements are for checking and don't have any specific use
 print('Appending done!')
 num_classes = len(labels)
 
 print('\nDoing label encoding')
+# Here it'll make some labels in the form of numbers
 label_encoder = LabelEncoder()
 label_encoder.fit(training_labels)
 training_labels = label_encoder.transform(training_labels)
@@ -43,6 +47,8 @@ max_len = 20
 oov_token = "<OOV>"
 
 print('\nDoing tokenization')
+# Here we're doing the tokenization and have
+# some sequences in the sentences taken from users
 tokenizer = Tokenizer()
 tokenizer.fit_on_texts(training_sentences)
 word_index = tokenizer.word_index
@@ -50,14 +56,14 @@ sequences = tokenizer.texts_to_sequences(training_sentences)
 padded_sequences = pad_sequences(sequences, truncating='post', maxlen=max_len)
 print('\nDone with tokenization')
 
-# Creating the network
+# Creating the neural network model
 print("\nBuilding the network")
 model = Sequential()
 model.add(Embedding(vocab_size, embedding_dim, input_length=max_len))
 model.add(GlobalAveragePooling1D())
-model.add(Dense(16, activation='relu'))
-model.add(Dense(16, activation='relu'))
-model.add(Dense(num_classes, activation='softmax'))
+model.add(Dense(16, activation='relu', name='Hidden_Layer_1'))
+model.add(Dense(16, activation='relu', name='Hidden_Layer_2'))
+model.add(Dense(num_classes, activation='softmax', name='Output_Layer'))
 
 print('\nCompiling the network model')
 model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
